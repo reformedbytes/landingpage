@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import { PortableText } from "next-sanity";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
-import { journalEntries, getJournalEntryBySlug } from "@/lib/data/journal";
+import { getJournalSlugs, getJournalEntryBySlug } from "@/lib/data/journal";
 import { pageMetadata, siteUrl } from "@/lib/seo";
 
 function formatDate(iso: string) {
@@ -15,8 +16,9 @@ function formatDate(iso: string) {
   });
 }
 
-export function generateStaticParams() {
-  return journalEntries.map((entry) => ({ slug: entry.slug }));
+export async function generateStaticParams() {
+  const slugs = await getJournalSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -25,7 +27,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const entry = getJournalEntryBySlug(slug);
+  const entry = await getJournalEntryBySlug(slug);
   if (!entry) return {};
   return pageMetadata({
     title: entry.title,
@@ -41,7 +43,7 @@ export default async function JournalEntryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const entry = getJournalEntryBySlug(slug);
+  const entry = await getJournalEntryBySlug(slug);
   if (!entry) notFound();
 
   const jsonLd = {
@@ -88,10 +90,8 @@ export default async function JournalEntryPage({
           ))}
         </div>
 
-        <div className="prose prose-invert max-w-none space-y-5 [&>p]:leading-relaxed">
-          {entry.body.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
+        <div className="prose prose-invert max-w-none prose-p:leading-relaxed prose-a:text-accent">
+          <PortableText value={entry.body} />
         </div>
       </article>
     </Container>

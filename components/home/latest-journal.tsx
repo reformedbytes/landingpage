@@ -3,9 +3,11 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 import { ArticlePreviewCard } from "@/components/journal/article-preview-card";
 import { Reveal } from "@/components/motion/reveal";
-import { latestJournalEntries } from "@/lib/data/journal";
+import { getLatestJournalEntries } from "@/lib/data/journal";
 
-export function LatestJournal() {
+export async function LatestJournal() {
+  const latestJournalEntries = await getLatestJournalEntries(3);
+
   return (
     <section className="py-20 sm:py-24">
       <Container>

@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { journalEntries } from "@/lib/data/journal";
+import { getJournalEntries } from "@/lib/data/journal";
 import { projects } from "@/lib/data/projects";
 import { siteUrl } from "@/lib/seo";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",
     "/projects",
@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
+  const journalEntries = await getJournalEntries();
   const journalRoutes = journalEntries.map((entry) => ({
     url: `${siteUrl}/journal/${entry.slug}`,
     lastModified: new Date(entry.date),
