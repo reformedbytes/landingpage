@@ -26,6 +26,9 @@ export function SiteFooter() {
           <p>&copy; {year} Reformed Bytes. All rights reserved.</p>
           <p>Built with craftsmanship, curiosity, and conviction.</p>
         </div>
+        <p className="text-xs text-subtle">
+          Set in Fraunces, Inter, and JetBrains Mono.
+        </p>
       </div>
     </footer>
   );

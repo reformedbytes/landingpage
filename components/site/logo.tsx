@@ -10,10 +10,6 @@ type LogoProps = {
   showTagline?: boolean;
 };
 
-type BrandLockupProps = {
-  className?: string;
-};
-
 export function LogoMark({ className }: LogoMarkProps) {
   return (
     <svg
@@ -86,21 +82,5 @@ export function Logo({ className, showTagline = false }: LogoProps) {
         )}
       </span>
     </Link>
-  );
-}
-
-export function BrandLockup({ className }: BrandLockupProps) {
-  return (
-    <div className={cn("flex flex-col items-start gap-4", className)}>
-      <LogoMark className="h-14 w-14 sm:h-16 sm:w-16" />
-      <div>
-        <p className="font-display text-3xl font-medium leading-none tracking-tight text-foreground sm:text-4xl">
-          Reformed<span className="text-accent">Bytes</span>
-        </p>
-        <p className="mt-3 font-mono text-[0.65rem] font-medium uppercase tracking-[0.32em] text-subtle sm:text-xs">
-          Faith. Truth. Technology.
-        </p>
-      </div>
-    </div>
   );
 }

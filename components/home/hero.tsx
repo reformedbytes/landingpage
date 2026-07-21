@@ -2,7 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { BrandLockup } from "@/components/site/logo";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 
@@ -23,64 +22,40 @@ export function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden border-b border-border/60 py-24 sm:py-32">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 50% 0%, hsl(var(--accent) / 0.08), transparent 70%)",
-        }}
-      />
+    <section className="border-b border-border/60 py-28 sm:py-40">
       <Container>
-        <div className="mx-auto flex max-w-3xl flex-col items-start gap-6">
-          <motion.div
+        <div className="flex max-w-2xl flex-col items-start gap-6">
+          <motion.h1
             custom={0}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
+            className="font-display text-5xl font-medium leading-[1.05] text-foreground sm:text-6xl md:text-7xl"
           >
-            <BrandLockup />
-          </motion.div>
-
-          <motion.h1
-            custom={1}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="font-display text-4xl font-medium leading-[1.1] text-foreground sm:text-5xl md:text-6xl"
-          >
-            Engineering thoughtful software.
+            Scripture and software, worked with the same care.
           </motion.h1>
 
           <motion.p
-            custom={2}
+            custom={1}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
             className="max-w-xl text-lg leading-relaxed text-muted"
           >
-            Building intelligent systems for AI, RF, automation, and
-            infrastructure. Technology shaped by craftsmanship and
-            conviction.
+            A personal study in reading, theology, and building things worth
+            building.
           </motion.p>
 
           <motion.div
-            custom={3}
+            custom={2}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="mt-2 flex flex-wrap items-center gap-3"
+            className="mt-2"
           >
-            <Button href="/projects">
-              Explore Projects
+            <Button href="/journal">
+              Read the Journal
               <ArrowRight size={16} />
-            </Button>
-            <Button href="/journal" variant="secondary">
-              Read Journal
-            </Button>
-            <Button href="/quotes" variant="ghost">
-              View Quotes
             </Button>
           </motion.div>
         </div>

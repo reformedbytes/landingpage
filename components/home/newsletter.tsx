@@ -15,18 +15,20 @@ export function Newsletter() {
             sharing — new projects, journal entries, or a quote worth
             sitting with. No noise, no schedule.
           </p>
-          <form className="mt-2 flex w-full max-w-sm flex-col gap-3 sm:flex-row">
-            <label htmlFor="newsletter-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="newsletter-email"
-              type="email"
-              required
-              placeholder="you@example.com"
-              className="h-11 flex-1 rounded-full border border-border bg-surface-2 px-4 text-sm text-foreground placeholder:text-subtle focus-visible:outline-none"
-            />
-            <Button type="submit" size="md">
+          <form className="mt-2 flex w-full max-w-sm flex-col gap-3 sm:flex-row sm:items-end">
+            <div className="flex-1 border-b border-border transition-colors focus-within:border-accent">
+              <label htmlFor="newsletter-email" className="sr-only">
+                Email address
+              </label>
+              <input
+                id="newsletter-email"
+                type="email"
+                required
+                placeholder="you@example.com"
+                className="h-11 w-full bg-transparent px-1 text-sm text-foreground placeholder:text-subtle focus-visible:outline-none"
+              />
+            </div>
+            <Button type="submit" variant="secondary" size="md">
               Subscribe
             </Button>
           </form>

@@ -21,6 +21,12 @@ export function FeaturedProjects() {
           </Button>
         </Reveal>
 
+        <p className="mb-8 text-sm text-subtle">
+          Right now: rebuilding the Sonos Dashboard&apos;s zone grouping UI,
+          and extending the SDR Lab to decode a wider range of utility
+          telemetry protocols.
+        </p>
+
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {featuredProjects.map((project, i) => (
             <Reveal key={project.slug} delay={i * 0.06}>
