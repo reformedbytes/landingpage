@@ -11,7 +11,7 @@ export function ProjectCard({ project }: { project: Project }) {
   const content = (
     <Card className="flex h-full flex-col justify-between">
       <div>
-        <ProjectVisual icon={project.icon} className="mb-5" />
+        <ProjectVisual icon={project.icon} category={project.category} className="mb-5" />
         <CardHeader className="mb-3 flex-row items-start justify-between gap-4">
           <CardTitle>{project.name}</CardTitle>
           <StatusBadge status={project.status} />

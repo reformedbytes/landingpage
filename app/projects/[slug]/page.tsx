@@ -45,7 +45,7 @@ export default async function ProjectDetailPage({
       </Button>
 
       <div className="mx-auto max-w-3xl">
-        <ProjectVisual icon={project.icon} className="mb-8" />
+        <ProjectVisual icon={project.icon} category={project.category} className="mb-8" />
 
         <div className="mb-4 flex flex-wrap items-center gap-3">
           <h1 className="font-display text-3xl font-medium text-foreground sm:text-4xl">

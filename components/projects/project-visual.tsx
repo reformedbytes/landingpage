@@ -12,14 +12,35 @@ const icons: Record<ProjectIcon, LucideIcon> = {
   sparkles: Sparkles,
 };
 
+/**
+ * Each project family gets its own muted hue (same saturation/lightness
+ * formula as the site accent, just a different hue) so the placeholder
+ * visuals read as distinct product lines rather than one repeated icon
+ * recolored identically across every card.
+ */
+const hues: Record<ProjectIcon, number> = {
+  flame: 12, // terracotta
+  "trending-up": 152, // sage / muted emerald
+  speaker: 265, // slate violet
+  coffee: 32, // brass (matches site accent)
+  cpu: 205, // slate blue
+  radio: 175, // muted teal
+  sparkles: 220, // neutral slate
+};
+
 export function ProjectVisual({
   icon,
+  category,
   className,
 }: {
   icon: ProjectIcon;
+  category?: string;
   className?: string;
 }) {
   const Icon = icons[icon];
+  const hue = hues[icon];
+  const tint = `hsl(${hue} 45% 58%)`;
+
   return (
     <div
       className={cn(
@@ -27,15 +48,42 @@ export function ProjectVisual({
         className
       )}
     >
+      {/* fine blueprint-style dot grid, tinted per project */}
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-70"
+        style={{
+          backgroundImage: `radial-gradient(hsl(${hue} 40% 60% / 0.35) 1px, transparent 1px)`,
+          backgroundSize: "18px 18px",
+        }}
+      />
+      {/* soft directional glow behind the mark */}
       <div
         aria-hidden
         className="absolute inset-0"
         style={{
-          background:
-            "radial-gradient(80% 80% at 30% 20%, hsl(var(--accent) / 0.14), transparent 65%)",
+          background: `radial-gradient(70% 70% at 28% 22%, hsl(${hue} 45% 58% / 0.16), transparent 65%)`,
         }}
       />
-      <Icon size={32} className="relative text-accent/70" />
+
+      {category && (
+        <span
+          className="absolute left-3 top-3 font-mono text-[10px] font-medium uppercase tracking-[0.14em]"
+          style={{ color: tint }}
+        >
+          {category}
+        </span>
+      )}
+
+      <div
+        className="relative flex h-11 w-11 items-center justify-center rounded-lg border"
+        style={{
+          borderColor: `hsl(${hue} 40% 58% / 0.35)`,
+          backgroundColor: `hsl(${hue} 45% 58% / 0.12)`,
+        }}
+      >
+        <Icon size={20} style={{ color: tint }} />
+      </div>
     </div>
   );
 }
