@@ -4,12 +4,14 @@ import type { ReadingItem } from "@/lib/data/reading";
 const GOODREADS_USER_ID = "33449473";
 
 const RECENTLY_FINISHED_LIMIT = 4;
+const RECOMMENDED_LIMIT = 3;
 
 interface GoodreadsBook {
   title: string;
   author: string;
   readAt?: string;
   review?: string;
+  rating?: number;
 }
 
 function extractTag(xml: string, tag: string): string | undefined {
@@ -48,12 +50,16 @@ async function fetchShelf(shelf: string): Promise<GoodreadsBook[]> {
       return [];
     }
     const xml = await res.text();
-    return parseItems(xml).map((item) => ({
-      title: extractTag(item, "title") ?? "Untitled",
-      author: extractTag(item, "author_name") ?? "Unknown",
-      readAt: extractTag(item, "user_read_at"),
-      review: extractTag(item, "user_review"),
-    }));
+    return parseItems(xml).map((item) => {
+      const rating = Number(extractTag(item, "user_rating"));
+      return {
+        title: extractTag(item, "title") ?? "Untitled",
+        author: extractTag(item, "author_name") ?? "Unknown",
+        readAt: extractTag(item, "user_read_at"),
+        review: extractTag(item, "user_review"),
+        rating: rating > 0 ? rating : undefined,
+      };
+    });
   } catch (err) {
     console.warn(`Goodreads: fetch failed for shelf "${shelf}"`, err);
     return [];
@@ -84,8 +90,14 @@ export async function getGoodreadsReading(): Promise<ReadingItem[]> {
     .sort((a, b) => new Date(b.readAt!).getTime() - new Date(a.readAt!).getTime())
     .slice(0, RECENTLY_FINISHED_LIMIT);
 
+  const recommended = read
+    .filter((b) => b.rating === 5 && b.readAt)
+    .sort((a, b) => new Date(b.readAt!).getTime() - new Date(a.readAt!).getTime())
+    .slice(0, RECOMMENDED_LIMIT);
+
   return [
     ...currentlyReading.map((b) => toReadingItem(b, "Currently Reading")),
     ...recentlyFinished.map((b) => toReadingItem(b, "Recently Finished")),
+    ...recommended.map((b) => toReadingItem(b, "Recommended")),
   ];
 }
