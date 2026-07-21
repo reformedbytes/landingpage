@@ -21,7 +21,7 @@ Phases 0–12 of `ReformedBytes_Build_Plan.md` are built:
 
 All of the above — build, type-check, and `npm audit` — were verified in the environment this was built in, immediately after a clean `npm ci`. That verification doesn't carry forward automatically to your local checkout after every pull; if `node_modules` is out of sync with `package-lock.json` (common after a dependency bump like the Next 16 upgrade below), run the clean-reinstall step above before trusting `npm run build` output.
 
-Still ahead: a Lighthouse pass, an MDX/content-collection pipeline for Journal and Projects (currently plain data arrays in `lib/data/` — fine for scaffolding, not yet the long-form writing foundation described in the design brief), and real content (the visible copy is realistic placeholder throughout).
+Still ahead: a Lighthouse pass, an MDX/content-collection pipeline for Journal and Projects (currently plain data arrays in `lib/data/` — fine for scaffolding, not yet the long-form writing foundation described in the design brief), and real content for Projects/Quotes/About (Journal and Reading now have real content — 17 imported posts and a live Goodreads feed, respectively).
 
 ## Getting Started
 
@@ -63,9 +63,15 @@ Cloudflare's own recommended path for Next.js changed since this was first set u
 
 ```bash
 npm run preview   # builds and serves it locally via Wrangler, close to production
-npm run deploy    # builds and deploys to Cloudflare
+npm run deploy    # builds, populates the cache, and deploys to Cloudflare
 ```
 
-This path was build-verified in the environment this was set up in (`opennextjs-cloudflare build` ran clean and produced `.open-next/worker.js` + `.open-next/assets`) — actual deployment to a live Cloudflare account hasn't been tested (no account access from where this was built). Re-verify with `npm run preview` in your own environment before your first real `npm run deploy`. You'll need to be logged in (`npx wrangler login`) and update the `name` in `wrangler.toml` to match your Cloudflare Workers project name.
+Live at reformedbytes.com, routed as a Workers custom domain (`[[routes]]` in `wrangler.toml`, `custom_domain = true` — Cloudflare provisions the DNS + TLS automatically). You'll need to be logged in (`npx wrangler login`, or `CLOUDFLARE_API_TOKEN` set in the environment) with an account that already has this domain as an active zone.
+
+**Caching**: `open-next.config.ts` uses the static-assets incremental cache — pages are prerendered at build time and served straight from Workers Assets, never re-rendered at request time. This matters for `lib/goodreads.ts` specifically: without it, every uncached visit would re-run the Goodreads fetch live from Cloudflare's network, which Goodreads 403s (see below). `npm run deploy` chains `build && populateCache remote && deploy` — all three are required; selecting the cache backend in config alone does nothing without `populateCache remote` actually copying the built cache into the uploaded assets.
+
+Pages are also sent with `s-maxage=3600` (1 hour) rather than Next's 1-year default, since Cloudflare — unlike Vercel — doesn't auto-invalidate its edge cache on deploy. Content updates show up within an hour on their own; for something you want visible immediately, purge manually (Cloudflare dashboard → the zone → Caching → Configuration → **Purge Everything**). The deploy token currently in use isn't scoped for cache-purge, so this can't be automated without adding that permission.
+
+**Goodreads (`lib/goodreads.ts`)**: fetches Goodreads' shelf RSS feeds and needs a browser-like `User-Agent` header — without one, Goodreads returns 403 specifically for requests originating from Cloudflare's network (confirmed via `wrangler tail`; the exact same request succeeds fine from a normal dev machine). If this breaks again, `npx wrangler tail reformed-bytes` while hitting `/reading` is the fastest way to see the real error live.
 
 See `ReformedBytes_Build_Plan.md` for the full phased roadmap and `ReformedBytes_Landing_Page_Prompt.md` for the original design brief.
