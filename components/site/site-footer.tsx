@@ -22,13 +22,9 @@ export function SiteFooter() {
             ))}
           </nav>
         </div>
-        <div className="flex flex-col gap-2 border-t border-border/60 pt-6 text-sm text-subtle sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-t border-border/60 pt-6 text-sm text-subtle">
           <p>&copy; {year} Reformed Bytes. All rights reserved.</p>
-          <p>Built with craftsmanship, curiosity, and conviction.</p>
         </div>
-        <p className="text-xs text-subtle">
-          Set in Fraunces, Inter, and JetBrains Mono.
-        </p>
       </div>
     </footer>
   );
