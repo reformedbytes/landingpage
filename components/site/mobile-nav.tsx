@@ -43,7 +43,7 @@ export function MobileNav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -8 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: "easeOut" }}
-            className="fixed inset-x-0 top-[64px] z-40 border-b border-border bg-background/98 px-6 py-6 backdrop-blur"
+            className="fixed inset-x-0 top-[64px] z-40 border-b border-border bg-background/95 px-6 py-6 backdrop-blur"
           >
             <ul className="flex flex-col gap-1">
               {navItems.map((item) => (
