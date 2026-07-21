@@ -12,7 +12,7 @@ Phases 0–12 of `ReformedBytes_Build_Plan.md` are built:
 - Projects: index + individual detail pages (`/projects/[slug]`) with visual placeholders, tech badges, write-ups
 - Journal: index with tag filtering, full article pages with write-ups, JSON-LD `Article` structured data
 - Quotes: searchable/filterable index (text search + category chips)
-- Reading: Currently Reading / Recently Finished / Recommended sections
+- Reading: Currently Reading / Recently Finished sections pulled live from Goodreads at build time (`lib/goodreads.ts`), Recommended stays hand-curated (`lib/data/reading.ts`)
 - About: static page
 - Motion: fade/slide entrance animations across all sections and card grids via a shared `Reveal` component, all respecting `prefers-reduced-motion`
 - SEO: per-page metadata, OpenGraph, canonical URLs, `sitemap.xml`, `robots.txt`, JSON-LD on articles
@@ -44,6 +44,7 @@ npm ci
 ## Notes
 
 - **Fonts**: uses `next/font/google` (Fraunces, Inter, JetBrains Mono), fetched and self-hosted at build time. This requires outbound internet access to fonts.googleapis.com during `npm run build` / `npm run dev` — normal for local dev and any standard CI/deploy environment.
+- **Goodreads**: the Reading page fetches `goodreads.com/review/list_rss/33449473?shelf=...` at build time (`lib/goodreads.ts`) for Currently Reading / Recently Finished. Goodreads retired its public API in 2020; this uses the still-live but undocumented shelf RSS feeds, so it could break without notice if Goodreads changes them — a failed fetch degrades to an empty list for that shelf rather than failing the build. The list only refreshes on redeploy, not per-visit (the page is statically generated). To change which Goodreads account it reads from, edit `GOODREADS_USER_ID` in `lib/goodreads.ts`.
 - **Linting**: `eslint` / `eslint-config-next` are not yet in `package.json`. Note that Next.js 16 removed the `next lint` command entirely, and current `eslint` (v10) requires flat-config (`eslint.config.mjs`) rather than the old `.eslintrc.json` — this needs a small setup pass whenever you want linting.
 - **Content**: placeholder data lives in `lib/data/` (`projects.ts`, `quotes.ts`, `journal.ts`, `reading.ts`). Swap in real content there, or migrate Journal/Projects to MDX when ready for longer-form writing.
 
