@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { BrandLockup } from "@/components/site/logo";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 
@@ -33,15 +34,14 @@ export function Hero() {
       />
       <Container>
         <div className="mx-auto flex max-w-3xl flex-col items-start gap-6">
-          <motion.span
+          <motion.div
             custom={0}
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="text-xs font-medium uppercase tracking-[0.18em] text-accent"
           >
-            Reformed Bytes
-          </motion.span>
+            <BrandLockup />
+          </motion.div>
 
           <motion.h1
             custom={1}

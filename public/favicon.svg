@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="12" fill="#0f100e"/>
+  <path
+    d="M20.5 9.5c-5.25 0-6.25 4.25-6.25 8.25v4.5c0 4.5-4.25 4.75-4.25 9.75s4.25 5.25 4.25 9.75v4.5c0 4 1 8.25 6.25 8.25"
+    stroke="#ded2bd"
+    stroke-width="3.25"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.82"
+  />
+  <path
+    d="M43.5 9.5c5.25 0 6.25 4.25 6.25 8.25v4.5c0 4.5 4.25 4.75 4.25 9.75s-4.25 5.25-4.25 9.75v4.5c0 4-1 8.25-6.25 8.25"
+    stroke="#ded2bd"
+    stroke-width="3.25"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.82"
+  />
+  <path
+    d="M32 24.25c-4.6-4.1-9.15-4.7-14-3.05v21.1c5.5-1.4 9.9-.35 14 4.1m0-22.15c4.6-4.1 9.15-4.7 14-3.05v21.1c-5.5-1.4-9.9-.35-14 4.1"
+    stroke="#ded2bd"
+    stroke-width="2.75"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M32 24.25V46.4"
+    stroke="#ded2bd"
+    stroke-width="2.75"
+    stroke-linecap="round"
+    opacity="0.78"
+  />
+  <path
+    d="M20.75 24.5v13.75c3.7-.45 7.5.9 11.25 4.05m11.25-17.8v13.75c-3.7-.45-7.5.9-11.25 4.05"
+    stroke="#a97835"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.9"
+  />
+</svg>

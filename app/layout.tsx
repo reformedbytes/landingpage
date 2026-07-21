@@ -48,7 +48,7 @@ export const metadata: Metadata = {
       "Engineering thoughtful software. Building intelligent systems for AI, RF, automation, and infrastructure.",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.svg",
   },
 };
 

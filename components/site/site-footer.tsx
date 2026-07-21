@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/site/logo";
 import { navItems } from "@/lib/nav";
 
 export function SiteFooter() {
@@ -8,9 +9,7 @@ export function SiteFooter() {
     <footer className="border-t border-border/80">
       <div className="mx-auto flex w-full max-w-content flex-col gap-6 px-6 py-10 lg:px-8">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <p className="font-display text-base text-foreground">
-            Reformed<span className="text-accent">Bytes</span>
-          </p>
+          <Logo showTagline className="pr-4" />
           <nav className="flex flex-wrap gap-x-6 gap-y-2">
             {navItems.map((item) => (
               <Link
