@@ -12,7 +12,7 @@ Phases 0–12 of `ReformedBytes_Build_Plan.md` are built:
 - Projects: index + individual detail pages (`/projects/[slug]`) with visual placeholders, tech badges, write-ups
 - Journal: index with tag filtering, full article pages with write-ups, JSON-LD `Article` structured data — content authored in Sanity Studio (see "Writing new content" below), 17 posts imported from an old Blogspot blog
 - Quotes: searchable/filterable index (text search + category chips)
-- Reading: Currently Reading / Recently Finished sections pulled live from Goodreads at build time (`lib/goodreads.ts`), Recommended stays hand-curated (`lib/data/reading.ts`)
+- Reading: Currently Reading, Recently Finished, and Recommended (most recent 5-star reads) all pulled live from Goodreads at build time (`lib/goodreads.ts`)
 - About: static page
 - Motion: fade/slide entrance animations across all sections and card grids via a shared `Reveal` component, all respecting `prefers-reduced-motion`
 - SEO: per-page metadata, OpenGraph, canonical URLs, `sitemap.xml`, `robots.txt`, JSON-LD on articles

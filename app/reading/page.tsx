@@ -2,7 +2,6 @@ import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ReadingCard } from "@/components/reading/reading-card";
 import { Reveal } from "@/components/motion/reveal";
-import { recommendedReading } from "@/lib/data/reading";
 import { getGoodreadsReading } from "@/lib/goodreads";
 import { pageMetadata } from "@/lib/seo";
 
@@ -20,8 +19,7 @@ const categories = [
 ] as const;
 
 export default async function ReadingPage() {
-  const goodreadsReading = await getGoodreadsReading();
-  const reading = [...goodreadsReading, ...recommendedReading];
+  const reading = await getGoodreadsReading();
 
   return (
     <Container className="py-20 sm:py-24">
