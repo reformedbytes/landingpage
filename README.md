@@ -19,7 +19,9 @@ Phases 0–12 of `ReformedBytes_Build_Plan.md` are built:
 - Accessibility: single `h1` per page, skip link, visible focus states, `aria-pressed` on filter toggles, contrast-checked color tokens
 - Security: Next.js 16.2.10 / React 19.2 (the 14.x line stopped receiving security patches — see below), `npm audit` reports 0 vulnerabilities
 
-Still ahead: a Lighthouse pass and real content (the visible copy is realistic placeholder throughout — see `lib/data/`).
+All of the above — build, type-check, and `npm audit` — were verified in the environment this was built in, immediately after a clean `npm ci`. That verification doesn't carry forward automatically to your local checkout after every pull; if `node_modules` is out of sync with `package-lock.json` (common after a dependency bump like the Next 16 upgrade below), run the clean-reinstall step above before trusting `npm run build` output.
+
+Still ahead: a Lighthouse pass, an MDX/content-collection pipeline for Journal and Projects (currently plain data arrays in `lib/data/` — fine for scaffolding, not yet the long-form writing foundation described in the design brief), and real content (the visible copy is realistic placeholder throughout).
 
 ## Getting Started
 
@@ -29,6 +31,15 @@ npm run dev
 ```
 
 Open http://localhost:3000.
+
+**If you're pulling after a dependency bump** (check `git log -p -- package.json` if `npm run build` fails with module-resolution or version-mismatch errors): `node_modules` doesn't update itself on `git pull`. Run a clean reinstall:
+
+```bash
+rm -rf node_modules
+npm ci
+```
+
+`npm ci` installs exactly what's in `package-lock.json`, which is always the source of truth for what this project expects — more reliable than `npm install` when recovering from drift.
 
 ## Notes
 
@@ -54,6 +65,6 @@ npm run preview   # builds and serves it locally via Wrangler, close to producti
 npm run deploy    # builds and deploys to Cloudflare
 ```
 
-This path has been build-verified (`opennextjs-cloudflare build` runs clean and produces `.open-next/worker.js` + `.open-next/assets`) — actual deployment to a live Cloudflare account hasn't been tested (no account access from where this was built), so run `npm run preview` first and confirm it locally before your first real `npm run deploy`. You'll need to be logged in (`npx wrangler login`) and update the `name` in `wrangler.toml` to match your Cloudflare Workers project name.
+This path was build-verified in the environment this was set up in (`opennextjs-cloudflare build` ran clean and produced `.open-next/worker.js` + `.open-next/assets`) — actual deployment to a live Cloudflare account hasn't been tested (no account access from where this was built). Re-verify with `npm run preview` in your own environment before your first real `npm run deploy`. You'll need to be logged in (`npx wrangler login`) and update the `name` in `wrangler.toml` to match your Cloudflare Workers project name.
 
 See `ReformedBytes_Build_Plan.md` for the full phased roadmap and `ReformedBytes_Landing_Page_Prompt.md` for the original design brief.
