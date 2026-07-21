@@ -34,7 +34,14 @@ function parseItems(xml: string): string[] {
 async function fetchShelf(shelf: string): Promise<GoodreadsBook[]> {
   try {
     const res = await fetch(
-      `https://www.goodreads.com/review/list_rss/${GOODREADS_USER_ID}?shelf=${shelf}`
+      `https://www.goodreads.com/review/list_rss/${GOODREADS_USER_ID}?shelf=${shelf}`,
+      {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+          Accept: "application/rss+xml, application/xml, text/xml, */*",
+        },
+      }
     );
     if (!res.ok) {
       console.warn(`Goodreads: shelf "${shelf}" returned ${res.status}`);
