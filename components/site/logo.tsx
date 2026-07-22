@@ -35,7 +35,7 @@ export function LogoMark({ className }: LogoMarkProps) {
         opacity="0.82"
       />
       <path
-        d="M32 24.25c-4.6-4.1-9.15-4.7-14-3.05v21.1c5.5-1.4 9.9-.35 14 4.1m0-22.15c4.6-4.1 9.15-4.7 14-3.05v21.1c-5.5-1.4-9.9-.35-14 4.1"
+        d="M32 25c-3.2-3.1-6.65-3.65-10.25-2.5v18.8c4.05-.85 7.4.25 10.25 3.35m0-19.65c3.2-3.1 6.65-3.65 10.25-2.5v18.8c-4.05-.85-7.4.25-10.25 3.35"
         stroke="currentColor"
         strokeWidth="2.75"
         strokeLinecap="round"
@@ -49,7 +49,7 @@ export function LogoMark({ className }: LogoMarkProps) {
         opacity="0.78"
       />
       <path
-        d="M20.75 24.5v13.75c3.7-.45 7.5.9 11.25 4.05m11.25-17.8v13.75c-3.7-.45-7.5.9-11.25 4.05"
+        d="M24 25.7v12.25c2.75-.15 5.5 1.05 8 3.55m8-15.8v12.25c-2.75-.15-5.5 1.05-8 3.55"
         stroke="hsl(var(--accent))"
         strokeWidth="1.8"
         strokeLinecap="round"
